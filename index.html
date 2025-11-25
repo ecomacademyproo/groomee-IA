@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bienvenue dans GROOM™</title>
+
+<style>
+    body {
+        margin: 0;
+        background: #000e1a;
+        font-family: Arial, sans-serif;
+        color: #bcdfff;
+        overflow: hidden;
+        text-align: center;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Fond IA bleu */
+    .matrix-bg {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        z-index: -1;
+    }
+    .line {
+        position: absolute;
+        width: 2px;
+        background: rgba(0,140,255,0.4);
+        box-shadow: 0 0 10px #008cff;
+        animation: drop 4s linear infinite;
+    }
+    @keyframes drop {
+        0% { transform: translateY(-150vh); opacity: 0; }
+        15% { opacity: 1; }
+        100% { transform: translateY(150vh); opacity: 0; }
+    }
+
+    /* Titre */
+    h1 {
+        margin-top: 80px;
+        font-size: 38px;
+        color: #4aa8ff;
+        text-shadow: 0 0 14px #4aa8ff, 0 0 35px #008cff;
+        animation: fadeIn 1.5s ease-out;
+    }
+
+    /* Texte IA */
+    #typewriter {
+        margin-top: 25px;
+        width: 85%;
+        max-width: 700px;
+        font-size: 16px;
+        line-height: 1.5;
+        min-height: 180px;
+        text-shadow: 0 0 10px #4aa8ff;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Bouton */
+    .btn-next {
+        margin-top: 40px;
+        padding: 14px 40px;
+        font-size: 18px;
+        background: #009dff;
+        border-radius: 10px;
+        border: none;
+        color: #fff;
+        box-shadow: 0 0 22px #009dff;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    .btn-next:hover {
+        transform: scale(1.1);
+        box-shadow: 0 0 35px #00c3ff;
+    }
+</style>
+</head>
+<body>
+
+<!-- FOND IA -->
+<div class="matrix-bg"></div>
+<script>
+    for (let i = 0; i < 25; i++) {
+        let line = document.createElement("div");
+        line.className = "line";
+        line.style.left = Math.random() * 100 + "%";
+        line.style.height = (120 + Math.random()*60) + "vh";
+        line.style.animationDelay = (Math.random()*5) + "s";
+        document.body.appendChild(line);
+    }
+</script>
+
+<!-- AUDIO AUTOPLAY (iPhone-compatible thanks to muted trick) -->
+<audio id="introAudio" autoplay muted>
+  <source src="intro.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+setTimeout(() => {
+    const audio = document.getElementById("introAudio");
+    audio.muted = false;
+    audio.play().catch(() => {});
+}, 500);
+</script>
+
+<h1>Bienvenue dans GROOM™</h1>
+
+<!-- TEXTE LETTRE PAR LETTRE -->
+<div id="typewriter"></div>
+
+<script>
+const text = 
+`Initialisation du système GROOM™...
+Analyse Élít CSP en cours...
+Modules activés.
+
+Votre interface GROOM™ est maintenant opérationnelle.
+
+Préparez-vous. Vous allez accéder à un écosystème capable d’analyser vos idées, détecter vos opportunités et tracer la voie la plus rentable selon votre profil.`
+
+let index = 0;
+const speed = 22;
+function typeEffect() {
+    if(index < text.length){
+        document.getElementById("typewriter").innerHTML += text.charAt(index);
+        index++;
+        setTimeout(typeEffect, speed);
+    }
+}
+typeEffect();
+</script>
+
+<button class="btn-next" onclick="window.location.href='page3.html'">SUIVANT →</button>
+
+</body>
+</html>
